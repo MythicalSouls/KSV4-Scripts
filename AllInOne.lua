@@ -302,6 +302,7 @@ newButton("Dummy Farm Gui", function()
 end)
 newButton("Luminance Farm Toggle", function() 
 	if not _G.LuminanceFarmConnection then
+		plr.Character:FindFirstChildOfClass("Humanoid").Health = 0
 		_G.LuminanceFarmConnection = plr.CharacterAdded:Connect(function(char)
 			task.wait(1.3)
 			plr.Character:FindFirstChildOfClass("Humanoid"):MoveTo(workspace.SwordStands["SwordStant [ Luminance ]"].Model.Position)
@@ -370,6 +371,8 @@ newButton("Potions Farm Toggle", function()
 end)
 newButton("Freecam Toggle", function() 
 	if not _G.FreecamConnection then
+		_G.PreviousWS = plr.Character:FindFirstChildOfClass("Humanoid").WalkSpeed
+		plr.Character:FindFirstChildOfClass("Humanoid").WalkSpeed = 0
 		local cam = workspace.CurrentCamera
 		local UIS = game:GetService("UserInputService")
 		local RS = game:GetService("RunService")
@@ -381,7 +384,7 @@ newButton("Freecam Toggle", function()
 
 		cam.CameraType = Enum.CameraType.Scriptable
 
-		local speed = 5
+		local speed = 50
 		local sens = .3
 
 		speed /= 10
@@ -486,6 +489,7 @@ newButton("Freecam Toggle", function()
 		end)
 	elseif _G.FreecamConnection then
 		_G.FreecamConnection:Disconnect()
+		plr.Character:FindFirstChildOfClass("Humanoid").WalkSpeed = _G.PreviousWS
 	end
 
 end)
