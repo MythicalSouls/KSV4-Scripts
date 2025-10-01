@@ -490,8 +490,8 @@ newButton("Freecam Toggle", function()
 	elseif _G.FreecamConnection then
 		_G.FreecamConnection:Disconnect()
 		plr.Character:FindFirstChildOfClass("Humanoid").WalkSpeed = _G.PreviousWS
-		workspace.CurrentCamera.CFrame = plr.Character:FindFirstChild("HumanoidRootPart").CFrame
-		workspace.CurrentCamera.CameraType = Enum.CameraType.Fixed
+		workspace.CurrentCamera.CFrame = plr.Character:FindFirstChild("Head").CFrame
+		workspace.CurrentCamera.CameraType = Enum.CameraType.Custom
 	end
 
 end)
