@@ -93,212 +93,212 @@ local hrp = plr.Character:FindFirstChild("HumanoidRootPart")
 local potionfarminprogress = false
 
 newButton("Dummy Farm Gui", function() 
-		local player = game.Players.LocalPlayer
-		local gui = Instance.new("ScreenGui")
-		local frame = Instance.new("Frame")
-		local titleLabel = Instance.new("TextLabel")
-		local startButton = Instance.new("TextButton")
-		local playerDropdown = Instance.new("TextButton")
-		local playerListFrame = Instance.new("Frame")
-		local scrollingFrame = Instance.new("ScrollingFrame")
-		local uiListLayout = Instance.new("UIListLayout")
-		local distanceTextBox = Instance.new("TextBox")
-		local distanceLabel = Instance.new("TextLabel")
-		local distanceFrame = Instance.new("Frame")
+	local player = game.Players.LocalPlayer
+	local gui = Instance.new("ScreenGui")
+	local frame = Instance.new("Frame")
+	local titleLabel = Instance.new("TextLabel")
+	local startButton = Instance.new("TextButton")
+	local playerDropdown = Instance.new("TextButton")
+	local playerListFrame = Instance.new("Frame")
+	local scrollingFrame = Instance.new("ScrollingFrame")
+	local uiListLayout = Instance.new("UIListLayout")
+	local distanceTextBox = Instance.new("TextBox")
+	local distanceLabel = Instance.new("TextLabel")
+	local distanceFrame = Instance.new("Frame")
 
-		gui.Name = "ksv4guiv1"
-		gui.Parent = game.CoreGui
+	gui.Name = "ksv4guiv1"
+	gui.Parent = game.CoreGui
 
-		frame.Name = "MainFrame"
-		frame.Parent = gui
-		frame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		frame.BorderSizePixel = 0
-		frame.Position = UDim2.new(0.3, 0, 0.3, 0)
-		frame.Size = UDim2.new(0, 250, 0, 500)
-		frame.Active = true
-		frame.Draggable = true
+	frame.Name = "MainFrame"
+	frame.Parent = gui
+	frame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+	frame.BorderSizePixel = 0
+	frame.Position = UDim2.new(0.3, 0, 0.3, 0)
+	frame.Size = UDim2.new(0, 250, 0, 500)
+	frame.Active = true
+	frame.Draggable = true
 
-		titleLabel.Name = "TitleLabel"
-		titleLabel.Parent = frame
-		titleLabel.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-		titleLabel.BorderSizePixel = 0
-		titleLabel.Size = UDim2.new(1, 0, 0, 50)
-		titleLabel.Font = Enum.Font.SourceSansBold
-		titleLabel.Text = "ksv4 dummy farm gui by lagrange"
-		titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-		titleLabel.TextSize = 14
+	titleLabel.Name = "TitleLabel"
+	titleLabel.Parent = frame
+	titleLabel.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+	titleLabel.BorderSizePixel = 0
+	titleLabel.Size = UDim2.new(1, 0, 0, 50)
+	titleLabel.Font = Enum.Font.SourceSansBold
+	titleLabel.Text = "ksv4 dummy farm gui by lagrange"
+	titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+	titleLabel.TextSize = 14
 
-		startButton.Name = "StartButton"
-		startButton.Parent = frame
-		startButton.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-		startButton.BorderSizePixel = 0
-		startButton.Position = UDim2.new(0.1, 0, 0.2, 0)
-		startButton.Size = UDim2.new(0.8, 0, 0, 50)
-		startButton.Font = Enum.Font.SourceSansBold
-		startButton.Text = "Start bringing"
-		startButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-		startButton.TextSize = 18
+	startButton.Name = "StartButton"
+	startButton.Parent = frame
+	startButton.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+	startButton.BorderSizePixel = 0
+	startButton.Position = UDim2.new(0.1, 0, 0.2, 0)
+	startButton.Size = UDim2.new(0.8, 0, 0, 50)
+	startButton.Font = Enum.Font.SourceSansBold
+	startButton.Text = "Start bringing"
+	startButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+	startButton.TextSize = 18
 
-		playerDropdown.Name = "PlayerDropdown"
-		playerDropdown.Parent = frame
-		playerDropdown.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-		playerDropdown.BorderSizePixel = 0
-		playerDropdown.Position = UDim2.new(0.1, 0, 0.4, 0)
-		playerDropdown.Size = UDim2.new(0.8, 0, 0, 50)
-		playerDropdown.Font = Enum.Font.SourceSansBold
-		playerDropdown.Text = "Select NPCs"
-		playerDropdown.TextColor3 = Color3.fromRGB(255, 255, 255)
-		playerDropdown.TextSize = 18
+	playerDropdown.Name = "PlayerDropdown"
+	playerDropdown.Parent = frame
+	playerDropdown.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+	playerDropdown.BorderSizePixel = 0
+	playerDropdown.Position = UDim2.new(0.1, 0, 0.4, 0)
+	playerDropdown.Size = UDim2.new(0.8, 0, 0, 50)
+	playerDropdown.Font = Enum.Font.SourceSansBold
+	playerDropdown.Text = "Select NPCs"
+	playerDropdown.TextColor3 = Color3.fromRGB(255, 255, 255)
+	playerDropdown.TextSize = 18
 
-		playerListFrame.Name = "PlayerListFrame"
-		playerListFrame.Parent = frame
-		playerListFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-		playerListFrame.BorderSizePixel = 0
-		playerListFrame.Position = UDim2.new(0.1, 0, 0.6, 0)
-		playerListFrame.Size = UDim2.new(0.8, 0, 0.3, 0)
-		playerListFrame.Visible = false
+	playerListFrame.Name = "PlayerListFrame"
+	playerListFrame.Parent = frame
+	playerListFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+	playerListFrame.BorderSizePixel = 0
+	playerListFrame.Position = UDim2.new(0.1, 0, 0.6, 0)
+	playerListFrame.Size = UDim2.new(0.8, 0, 0.3, 0)
+	playerListFrame.Visible = false
 
-		scrollingFrame.Parent = playerListFrame
-		scrollingFrame.Size = UDim2.new(1, 0, 1, 0)
-		scrollingFrame.CanvasSize = UDim2.new(0, 0, 5, 0)
-		scrollingFrame.ScrollBarThickness = 10
+	scrollingFrame.Parent = playerListFrame
+	scrollingFrame.Size = UDim2.new(1, 0, 1, 0)
+	scrollingFrame.CanvasSize = UDim2.new(0, 0, 5, 0)
+	scrollingFrame.ScrollBarThickness = 10
 
-		uiListLayout.Parent = scrollingFrame
-		uiListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+	uiListLayout.Parent = scrollingFrame
+	uiListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
-		distanceFrame.Name = "DistanceFrame"
-		distanceFrame.Parent = frame
-		distanceFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-		distanceFrame.BorderSizePixel = 0
-		distanceFrame.Position = UDim2.new(0.1, 0, 0.5, 0)
-		distanceFrame.Size = UDim2.new(0.8, 0, 0, 50)
+	distanceFrame.Name = "DistanceFrame"
+	distanceFrame.Parent = frame
+	distanceFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+	distanceFrame.BorderSizePixel = 0
+	distanceFrame.Position = UDim2.new(0.1, 0, 0.5, 0)
+	distanceFrame.Size = UDim2.new(0.8, 0, 0, 50)
 
-		distanceLabel.Name = "DistanceLabel"
-		distanceLabel.Parent = distanceFrame
-		distanceLabel.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-		distanceLabel.BorderSizePixel = 0
-		distanceLabel.Size = UDim2.new(0.5, 0, 1, 0)
-		distanceLabel.Font = Enum.Font.SourceSansBold
-		distanceLabel.Text = "Put Distance of Loopbring:"
-		distanceLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-		distanceLabel.TextSize = 14
-		distanceLabel.TextXAlignment = Enum.TextXAlignment.Left
+	distanceLabel.Name = "DistanceLabel"
+	distanceLabel.Parent = distanceFrame
+	distanceLabel.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+	distanceLabel.BorderSizePixel = 0
+	distanceLabel.Size = UDim2.new(0.5, 0, 1, 0)
+	distanceLabel.Font = Enum.Font.SourceSansBold
+	distanceLabel.Text = "Put Distance of Loopbring:"
+	distanceLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+	distanceLabel.TextSize = 14
+	distanceLabel.TextXAlignment = Enum.TextXAlignment.Left
 
-		distanceTextBox.Name = "DistanceTextBox"
-		distanceTextBox.Parent = distanceFrame
-		distanceTextBox.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-		distanceTextBox.BorderSizePixel = 0
-		distanceTextBox.Position = UDim2.new(0.5, 0, 0, 0)
-		distanceTextBox.Size = UDim2.new(0.5, 0, 1, 0)
-		distanceTextBox.Font = Enum.Font.SourceSansBold
-		distanceTextBox.PlaceholderText = "Distance in studs"
-		distanceTextBox.Text = "5"
-		distanceTextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-		distanceTextBox.TextSize = 14
-		distanceTextBox.TextXAlignment = Enum.TextXAlignment.Center
+	distanceTextBox.Name = "DistanceTextBox"
+	distanceTextBox.Parent = distanceFrame
+	distanceTextBox.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+	distanceTextBox.BorderSizePixel = 0
+	distanceTextBox.Position = UDim2.new(0.5, 0, 0, 0)
+	distanceTextBox.Size = UDim2.new(0.5, 0, 1, 0)
+	distanceTextBox.Font = Enum.Font.SourceSansBold
+	distanceTextBox.PlaceholderText = "Distance in studs"
+	distanceTextBox.Text = "5"
+	distanceTextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+	distanceTextBox.TextSize = 14
+	distanceTextBox.TextXAlignment = Enum.TextXAlignment.Center
 
-		-- Functions to manage player selection
-		local selectedPlayers = {}
-		local function updatePlayerList()
-			for _, v in pairs(scrollingFrame:GetChildren()) do
-				if v:IsA("TextButton") then
-					v:Destroy()
-				end
+	-- Functions to manage player selection
+	local selectedPlayers = {}
+	local function updatePlayerList()
+		for _, v in pairs(scrollingFrame:GetChildren()) do
+			if v:IsA("TextButton") then
+				v:Destroy()
 			end
 		end
+	end
 
 
-		local sselectEnemiesButton = Instance.new("TextButton")
-		sselectEnemiesButton.Size = UDim2.new(1, 0, 0, 30)
-		sselectEnemiesButton.Text = "deselect all"
-		sselectEnemiesButton.Parent = scrollingFrame
-		sselectEnemiesButton.MouseButton1Click:Connect(function()
-			selectedPlayers = {}
-			playerDropdown.Text = "Selected: None"
+	local sselectEnemiesButton = Instance.new("TextButton")
+	sselectEnemiesButton.Size = UDim2.new(1, 0, 0, 30)
+	sselectEnemiesButton.Text = "deselect all"
+	sselectEnemiesButton.Parent = scrollingFrame
+	sselectEnemiesButton.MouseButton1Click:Connect(function()
+		selectedPlayers = {}
+		playerDropdown.Text = "Selected: None"
+		playerListFrame.Visible = false
+	end)
+	for i,v in pairs(workspace.NPC:GetChildren()) do
+		local selectEnemiesButton = Instance.new("TextButton")
+		selectEnemiesButton.Size = UDim2.new(1, 0, 0, 30)
+		selectEnemiesButton.Text = "select "..v.Name
+		selectEnemiesButton.Parent = scrollingFrame
+		selectEnemiesButton.MouseButton1Click:Connect(function()
+			table.insert(selectedPlayers, v.Name)
+			playerDropdown.Text = "Selected: " .. table.concat(selectedPlayers, ", ") .. " NPC(s)"
 			playerListFrame.Visible = false
 		end)
-		for i,v in pairs(workspace.NPC:GetChildren()) do
-			local selectEnemiesButton = Instance.new("TextButton")
-			selectEnemiesButton.Size = UDim2.new(1, 0, 0, 30)
-			selectEnemiesButton.Text = "select "..v.Name
-			selectEnemiesButton.Parent = scrollingFrame
-			selectEnemiesButton.MouseButton1Click:Connect(function()
-				table.insert(selectedPlayers, v.Name)
-				playerDropdown.Text = "Selected: " .. table.concat(selectedPlayers, ", ") .. " NPC(s)"
-				playerListFrame.Visible = false
-			end)
-		end
+	end
 
 
-		playerDropdown.MouseButton1Click:Connect(function()
-			playerListFrame.Visible = not playerListFrame.Visible
-			--updatePlayerList()
-		end)
+	playerDropdown.MouseButton1Click:Connect(function()
+		playerListFrame.Visible = not playerListFrame.Visible
+		--updatePlayerList()
+	end)
 
-		-- Functions to handle bringing players
-		local bringing = false
+	-- Functions to handle bringing players
+	local bringing = false
 
-		local function getLookVector()
-			return player.Character and player.Character.PrimaryPart.CFrame.lookVector or Vector3.new(0, 0, -1)
-		end
-		local function getSpecific(className:string, target:Instance)
-			local t = {}
-			for i,v in pairs(target:GetChildren()) do
-				if v:IsA(className) then
-					table.insert(t, v)
-				end
+	local function getLookVector()
+		return player.Character and player.Character.PrimaryPart.CFrame.lookVector or Vector3.new(0, 0, -1)
+	end
+	local function getSpecific(className:string, target:Instance)
+		local t = {}
+		for i,v in pairs(target:GetChildren()) do
+			if v:IsA(className) then
+				table.insert(t, v)
 			end
-			return t
 		end
-		local function getNpcs(name:string)
-			local t = {}
-			for i,v in pairs(getSpecific("Model", workspace.NPC[name])) do
-				if v.PrimaryPart ~= nil then
-					table.insert(t, v)
-				end
+		return t
+	end
+	local function getNpcs(name:string)
+		local t = {}
+		for i,v in pairs(getSpecific("Model", workspace.NPC[name])) do
+			if v.PrimaryPart ~= nil then
+				table.insert(t, v)
 			end
-			return t
 		end
-		local function bringPlayers()
-			if not player.Character then return end
+		return t
+	end
+	local function bringPlayers()
+		if not player.Character then return end
 
-			local distance = tonumber(distanceTextBox.Text) or 5 -- Default distance is 5 studs
-			local pos = player.Character.PrimaryPart.Position + getLookVector() * distance
-			for i,v in pairs(selectedPlayers) do
-				for _, npc in pairs(getNpcs(v)) do
+		local distance = tonumber(distanceTextBox.Text) or 5 -- Default distance is 5 studs
+		local pos = player.Character.PrimaryPart.Position + getLookVector() * distance
+		for i,v in pairs(selectedPlayers) do
+			for _, npc in pairs(getNpcs(v)) do
 
 
-					local humanoid = npc:FindFirstChildOfClass("Humanoid")
+				local humanoid = npc:FindFirstChildOfClass("Humanoid")
 
-					if humanoid and humanoid.Health > 0 then
-						npc:SetPrimaryPartCFrame(CFrame.new(pos))
-					end
+				if humanoid and humanoid.Health > 0 then
+					npc:SetPrimaryPartCFrame(CFrame.new(pos))
 				end
 			end
 		end
+	end
 
-		startButton.MouseButton1Click:Connect(function()
-			if not bringing then
-				bringing = true
-				startButton.Text = "Stop bringing"
-				while bringing do
-					bringPlayers()
-					wait(0.1) -- Adjust the delay as needed
-				end
-			else
-				bringing = false
-				startButton.Text = "Start bringing"
+	startButton.MouseButton1Click:Connect(function()
+		if not bringing then
+			bringing = true
+			startButton.Text = "Stop bringing"
+			while bringing do
+				bringPlayers()
+				wait(0.1) -- Adjust the delay as needed
 			end
-		end)
+		else
+			bringing = false
+			startButton.Text = "Start bringing"
+		end
+	end)
 
-		-- Update distance functionality
-		distanceTextBox:GetPropertyChangedSignal("Text"):Connect(function()
-			local newDistance = tonumber(distanceTextBox.Text)
-			if newDistance and newDistance >= 0 then
-				-- Update distance variable if valid input
-				distance = newDistance
-			end
-		end)
+	-- Update distance functionality
+	distanceTextBox:GetPropertyChangedSignal("Text"):Connect(function()
+		local newDistance = tonumber(distanceTextBox.Text)
+		if newDistance and newDistance >= 0 then
+			-- Update distance variable if valid input
+			distance = newDistance
+		end
+	end)
 end)
 newButton("Luminance Farm Toggle", function() 
 	if not _G.LuminanceFarmConnection then
@@ -316,7 +316,7 @@ newButton("Luminance Farm Toggle", function()
 		_G.LuminanceFarmConnection:Disconnect()
 	end
 end)
-newButton("Potions Farm", function() 
+newButton("Potions Farm Toggle", function() 
 	if not _G.PotionFarmConnection then
 		_G.PotionFarmConnection = workspace.DescendantAdded:Connect(function(des)
 			if des:IsA("ProximityPrompt") then
@@ -367,6 +367,127 @@ newButton("Potions Farm", function()
 	elseif _G.PotionFarmConnection then
 		_G.PotionFarmConnection:Disconnect()
 	end
+end)
+newButton("Freecam Toggle", function() 
+	if not _G.FreecamConnection then
+		local cam = workspace.CurrentCamera
+		local UIS = game:GetService("UserInputService")
+		local RS = game:GetService("RunService")
+		local onMobile = not UIS.KeyboardEnabled
+		local keysDown = {}
+		local rotating = false
+
+		if not game:IsLoaded() then game.Loaded:Wait() end
+
+		cam.CameraType = Enum.CameraType.Scriptable
+
+		local speed = 5
+		local sens = .3
+
+		speed /= 10
+		if onMobile then sens*=2 end
+
+		local function renderStepped()
+			if rotating then
+				local delta = UIS:GetMouseDelta()
+				local cf = cam.CFrame
+				local yAngle = cf:ToEulerAngles(Enum.RotationOrder.YZX)
+				local newAmount = math.deg(yAngle)+delta.Y
+				if newAmount > 65 or newAmount < -65 then
+					if not (yAngle<0 and delta.Y<0) and not (yAngle>0 and delta.Y>0) then
+						delta = Vector2.new(delta.X,0)
+					end 
+				end
+				cf *= CFrame.Angles(-math.rad(delta.Y),0,0)
+				cf = CFrame.Angles(0,-math.rad(delta.X),0) * (cf - cf.Position) + cf.Position
+				cf = CFrame.lookAt(cf.Position, cf.Position + cf.LookVector)
+				if delta ~= Vector2.new(0,0) then cam.CFrame = cam.CFrame:Lerp(cf,sens) end
+				UIS.MouseBehavior = Enum.MouseBehavior.LockCurrentPosition
+			else
+				UIS.MouseBehavior = Enum.MouseBehavior.Default
+			end
+
+			if keysDown["Enum.KeyCode.W"] then
+				cam.CFrame *= CFrame.new(Vector3.new(0,0,-speed))
+			end
+			if keysDown["Enum.KeyCode.A"] then
+				cam.CFrame *= CFrame.new(Vector3.new(-speed,0,0))
+			end
+			if keysDown["Enum.KeyCode.S"] then
+				cam.CFrame *= CFrame.new(Vector3.new(0,0,speed))
+			end
+			if keysDown["Enum.KeyCode.D"] then
+				cam.CFrame *= CFrame.new(Vector3.new(speed,0,0))
+			end
+		end
+
+		_G.FreecamConnection = RS.RenderStepped:Connect(renderStepped)
+
+		local validKeys = {"Enum.KeyCode.W","Enum.KeyCode.A","Enum.KeyCode.S","Enum.KeyCode.D"}
+
+		UIS.InputBegan:Connect(function(Input)
+			for i, key in pairs(validKeys) do
+				if key == tostring(Input.KeyCode) then
+					keysDown[key] = true
+				end
+			end
+			if Input.UserInputType == Enum.UserInputType.MouseButton2 or (Input.UserInputType == Enum.UserInputType.Touch and UIS:GetMouseLocation().X>(cam.ViewportSize.X/2)) then
+				rotating = true
+			end
+			if Input.UserInputType == Enum.UserInputType.Touch then
+				if Input.Position.X < cam.ViewportSize.X/2 then
+					touchPos = Input.Position
+				end
+			end
+		end)
+
+		UIS.InputEnded:Connect(function(Input)
+			for key, v in pairs(keysDown) do
+				if key == tostring(Input.KeyCode) then
+					keysDown[key] = false
+				end
+			end
+			if Input.UserInputType == Enum.UserInputType.MouseButton2 or (Input.UserInputType == Enum.UserInputType.Touch and UIS:GetMouseLocation().X>(cam.ViewportSize.X/2)) then
+				rotating = false
+			end
+			if Input.UserInputType == Enum.UserInputType.Touch and touchPos then
+				if Input.Position.X < cam.ViewportSize.X/2 then
+					touchPos = nil
+					keysDown["Enum.KeyCode.W"] = false
+					keysDown["Enum.KeyCode.A"] = false
+					keysDown["Enum.KeyCode.S"] = false
+					keysDown["Enum.KeyCode.D"] = false
+				end
+			end
+		end)
+
+		UIS.TouchMoved:Connect(function(input)
+			if touchPos then
+				if input.Position.X < cam.ViewportSize.X/2 then
+					if input.Position.Y < touchPos.Y then
+						keysDown["Enum.KeyCode.W"] = true
+						keysDown["Enum.KeyCode.S"] = false
+					else
+						keysDown["Enum.KeyCode.W"] = false
+						keysDown["Enum.KeyCode.S"] = true
+					end
+					if input.Position.X < (touchPos.X-15) then
+						keysDown["Enum.KeyCode.A"] = true
+						keysDown["Enum.KeyCode.D"] = false
+					elseif input.Position.X > (touchPos.X+15) then
+						keysDown["Enum.KeyCode.A"] = false
+						keysDown["Enum.KeyCode.D"] = true
+					else
+						keysDown["Enum.KeyCode.A"] = false
+						keysDown["Enum.KeyCode.D"] = false
+					end
+				end
+			end
+		end)
+	elseif _G.FreecamConnection then
+		_G.FreecamConnection:Disconnect()
+	end
+
 end)
 local UIS = game:GetService('UserInputService')
 local frame = Frame
