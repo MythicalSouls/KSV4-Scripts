@@ -1,4 +1,69 @@
---TSGS
+--Credits to:
+--/TCESTeam_IAmFriendly on scriptblox for ProximityPrompt and ClickDetector Firer./
+--/IY team for remove fog and force bright function./
+--/byt3c0de_net on scriptblox for Fly GUI/
+--Without those peoples, TSGSHelper will be not good as now.
+
+--<<Helper for Desolation: Ascending Legends>>
+
+--<Setting up-1>
+--Delete IY_FE.iy file in your executor workspace folder if you have it, and don't execute IY until replacing.
+--Download IY-Settings-For-TSGS.txt and rename it to IY_FE.iy and put on your workspace folder.
+--This will provide you useful waypoints for D:AL.
+
+--<Setting up-2>
+--Execute this script if you got Shadow Gray Space, doing it on private server is recommanded as you will be easily caught that you are exploiting.
+--Also execute IY.
+--<How to use waypoints>
+--You will have to clikk IY settings, and then click Edit/Goto Waypoints.
+--There will be some waypoints, They are very useful for entering level 1 and retrying level 2.
+--Clicking will take you to the waypoint.
+
+--<Waypoints explanation>
+--third corrupt will teleport you to 3rd malware/darkness cave puzzle activator.
+--second corrupt will teleport you to 2nd malware/darkness cave puzzle activator.
+--first corrupt will teleport you to 1st malware/darkness cave puzzle activator.
+--lever will teleport you to lever that allows you to activate cave puzzle activvators.
+--steps will teleport you to malwares/cave puzzle.
+--oceanaltar will teleport you to altar that sends you to level 1 upon interaction.
+--nullstarequip will teleport you to nullstar's stand.
+--forest will teleport you to level 1, though this will probably just teleports you and not make things work if you didnt do previous steps.
+--ascending zones abyss islands is VERY important, teleports you to level 2, even if you got sent to emptiness/death zone. you can redo levers and progress it.
+
+--<Main turorial>
+--Those are main part of how to get D:AL.
+--Using ProximityPrompt and ClickDetector Firer and Fly GUI are heavily recommanded.
+--Set ProximityPrompt and ClickDetector Firer's method to Instant, and auto on while doing malwares/cave puzzles.
+--Click Use to fire CD's/PP's
+--Set Fly GUI's speed option to around 15, Fly GUI's functions are easy to understand so i wont explain more.
+--I will be refer ProximityPrompt and ClickDetector Firer as P/C firer.
+--Do not attempt to modify Scan and ProximityPrompt radius, as you can see them but you cannot interact with them.
+--When is say interact with something you can interact manually or with P/C firer.
+
+--/level 0/
+--IF YOU FORGOT: ACTIVATE INSTANT METHOD ON P/C FIRER.
+--Use lever waypoint to go to lever and then inteaact with near ProximityPrompt.
+--After activating lever, use first corrupt waypoint and nteaact with near ProximityPrompt.
+--Do the same thing on second and third corrupt.
+--You will see a gray message in chat if you've done all.
+--Use steps waypoint and actiavte auto mode as i said before, and then move around very short distance to prompts to activate various puzzle ProximityPrompts.
+--Do this until a new lighter gray chat message that says ocean has been modified or something appears
+--If that message appears, use oceanaltar waypoint to teleport instantly to level 1 teleporter.
+--Interact with altar's ProximityPrompt, and you will be sent to level 1.
+
+--/level 1/
+--Open Dex by using dex command on IY.
+--use fly and search for dark cube with glitchy particles.
+--If you cannot find it, you can always search it using Dex, all of D:AL puzzle stuffs are descendants of workspace.MapEventStuffs.GrayShadowSpaceStuff.
+--You can also teleport to object with Dex by holding on target object -> click Teleport To.
+--Activate/click the cube if you found it.
+--Find dark angel, If you cannot find it you can serach "desolate" in dex and look for high number desolate /example: desolate600/.
+--Teleport to angel using dex and interact with angel.
+--You will be sent to level 2.
+
+--/level 2/
+--Coming Soon, see limit breaker documentation posted in ksv4 wiki for more info before i add it.
+
 local function brightFunc()
 local Lighting = game.Lighting
 Lighting.FogEnd = 100000
