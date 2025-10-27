@@ -92,6 +92,159 @@ local plr = game.Players.LocalPlayer
 local hrp = plr.Character:FindFirstChild("HumanoidRootPart")
 local potionfarminprogress = false
 
+newButton("Luminance Farm Gui", function() 
+	local player = game.Players.LocalPlayer
+	local gui = Instance.new("ScreenGui")
+	local frame = Instance.new("Frame")
+	local titleLabel = Instance.new("TextLabel")
+	local startButton = Instance.new("TextButton")
+	local playerDropdown = Instance.new("TextButton")
+	local playerListFrame = Instance.new("Frame")
+	local scrollingFrame = Instance.new("ScrollingFrame")
+	local uiListLayout = Instance.new("UIListLayout")
+
+	gui.Name = "ksv4guilumi"
+	gui:AddTag("KSV4")
+	gui.Parent = game.CoreGui
+
+	frame.Name = "MainFrame"
+	frame.Parent = gui
+	frame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+	frame.BorderSizePixel = 0
+	frame.Position = UDim2.new(0.3, 0, 0.3, 0)
+	frame.Size = UDim2.new(0, 250, 0, 500)
+	frame.Active = true
+	frame.Draggable = true
+
+	titleLabel.Name = "TitleLabel"
+	titleLabel.Parent = frame
+	titleLabel.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+	titleLabel.BorderSizePixel = 0
+	titleLabel.Size = UDim2.new(1, 0, 0, 50)
+	titleLabel.Font = Enum.Font.SourceSansBold
+	titleLabel.Text = "ksv4 luminance farm gui by lagrange"
+	titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+	titleLabel.TextSize = 14
+
+	startButton.Name = "StartButton"
+	startButton.Parent = frame
+	startButton.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+	startButton.BorderSizePixel = 0
+	startButton.Position = UDim2.new(0.1, 0, 0.2, 0)
+	startButton.Size = UDim2.new(0.8, 0, 0, 50)
+	startButton.Font = Enum.Font.SourceSansBold
+	startButton.Text = "Start auto luminance"
+	startButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+	startButton.TextSize = 18
+
+	playerDropdown.Name = "PlayerDropdown"
+	playerDropdown.Parent = frame
+	playerDropdown.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+	playerDropdown.BorderSizePixel = 0
+	playerDropdown.Position = UDim2.new(0.1, 0, 0.4, 0)
+	playerDropdown.Size = UDim2.new(0.8, 0, 0, 50)
+	playerDropdown.Font = Enum.Font.SourceSansBold
+	playerDropdown.Text = "Select Variants"
+	playerDropdown.TextColor3 = Color3.fromRGB(255, 255, 255)
+	playerDropdown.TextSize = 18
+
+	playerListFrame.Name = "PlayerListFrame"
+	playerListFrame.Parent = frame
+	playerListFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+	playerListFrame.BorderSizePixel = 0
+	playerListFrame.Position = UDim2.new(0.1, 0, 0.6, 0)
+	playerListFrame.Size = UDim2.new(0.8, 0, 0.3, 0)
+	playerListFrame.Visible = false
+
+	scrollingFrame.Parent = playerListFrame
+	scrollingFrame.Size = UDim2.new(1, 0, 1, 0)
+	scrollingFrame.CanvasSize = UDim2.new(0, 0, 5, 0)
+	scrollingFrame.ScrollBarThickness = 10
+
+	uiListLayout.Parent = scrollingFrame
+	uiListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+
+	-- Functions to manage player selection
+	local selectedPlayers = {}
+	local function updatePlayerList()
+		for _, v in pairs(scrollingFrame:GetChildren()) do
+			if v:IsA("TextButton") then
+				v:Destroy()
+			end
+		end
+	end
+
+
+	local sselectEnemiesButton = Instance.new("TextButton")
+	sselectEnemiesButton.Size = UDim2.new(1, 0, 0, 30)
+	sselectEnemiesButton.Text = "deselect all"
+	sselectEnemiesButton.Parent = scrollingFrame
+	sselectEnemiesButton.MouseButton1Click:Connect(function()
+		selectedPlayers = {}
+		playerDropdown.Text = "Selected: None"
+		playerListFrame.Visible = false
+	end)
+	local tPhases = {"Luminance", "ElectroDarkness", "Melancholia", "NovaInterstellar", "", "Frostelar", "Cosmical Aurora", "", "", "", "", "", "", "", "", "", "Star Seeker"}
+	for i,v in pairs(tPhases) do
+		if v == "" then continue end
+		local selectEnemiesButton = Instance.new("TextButton")
+		selectEnemiesButton.Size = UDim2.new(1, 0, 0, 30)
+		selectEnemiesButton.Text = "select "..v
+		selectEnemiesButton.Parent = scrollingFrame
+		selectEnemiesButton.MouseButton1Click:Connect(function()
+			table.insert(selectedPlayers, v)
+			playerDropdown.Text = "Selected: " .. table.concat(selectedPlayers, ", ") .. " Variant(s)"
+			playerListFrame.Visible = false
+		end)
+	end
+
+
+	playerDropdown.MouseButton1Click:Connect(function()
+		playerListFrame.Visible = not playerListFrame.Visible
+		--updatePlayerList()
+	end)
+	local function auto()
+		if not _G.LuminanceFarmConnection then
+			local success, response
+			game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid").Health = 0
+			_G.LuminanceFarmConnection = game.Players.LocalPlayer.CharacterAdded:Connect(function(char)
+				while not success do
+					success, response = pcall(function()
+						task.wait(1)
+						game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):MoveTo(workspace.SwordStands["SwordStant [ Luminance ]"].Model.Position)
+						task.wait(1.55)
+						fireproximityprompt(workspace.SwordStands["SwordStant [ Luminance ]"].Giver.ProximityPrompt)
+						task.wait(1)
+						game.Players.LocalPlayer.Backpack:FindFirstChildOfClass("Tool").Parent = game.Players.LocalPlayer.Character
+						repeat task.wait() until game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Tool").RandomPhases.result.Value ~= 0
+						if table.find(selectedPlayers, tPhases[game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Tool").RandomPhases.result.Value]) then
+							task.wait(0.9)
+							game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid").Health = 0
+						end
+					end)
+					task.wait(.01)
+				end
+				success, response = nil, nil
+			end)
+		elseif _G.LuminanceFarmConnection then
+			_G.LuminanceFarmConnection:Disconnect()
+			_G.LuminanceFarmConnection = nil
+		end
+	end
+	local mode = false
+	startButton.MouseButton1Click:Connect(function()
+		if mode == false then
+			mode = true
+			startButton.Text = "Stop auto luminance"
+			auto()
+		else
+			mode = false
+			startButton.Text = "Start auto luminance"
+			auto()
+		end
+	end)
+end)
+
 newButton("Dummy Farm Gui", function() 
 	local player = game.Players.LocalPlayer
 	local gui = Instance.new("ScreenGui")
@@ -107,6 +260,7 @@ newButton("Dummy Farm Gui", function()
 	local distanceFrame = Instance.new("Frame")
 
 	gui.Name = "ksv4guiv1"
+	gui:AddTag("KSV4")
 	gui.Parent = game.CoreGui
 
 	frame.Name = "MainFrame"
@@ -300,23 +454,6 @@ newButton("Dummy Farm Gui", function()
 		end
 	end)
 end)
-newButton("Luminance Farm Toggle", function() 
-	if not _G.LuminanceFarmConnection then
-		plr.Character:FindFirstChildOfClass("Humanoid").Health = 0
-		_G.LuminanceFarmConnection = plr.CharacterAdded:Connect(function(char)
-			task.wait(1.3)
-			plr.Character:FindFirstChildOfClass("Humanoid"):MoveTo(workspace.SwordStands["SwordStant [ Luminance ]"].Model.Position)
-			task.wait(2)
-			fireproximityprompt(workspace.SwordStands["SwordStant [ Luminance ]"].Giver.ProximityPrompt)
-			task.wait(1)
-			plr.Backpack:FindFirstChildOfClass("Tool").Parent = plr.Character
-			task.wait(1.2)
-			plr.Character:FindFirstChildOfClass("Humanoid").Health = 0
-		end)
-	elseif _G.LuminanceFarmConnection then
-		_G.LuminanceFarmConnection:Disconnect()
-	end
-end)
 newButton("Potions Farm Toggle", function() 
 	if not _G.PotionFarmConnection then
 		_G.PotionFarmConnection = workspace.DescendantAdded:Connect(function(des)
@@ -369,6 +506,194 @@ newButton("Potions Farm Toggle", function()
 		_G.PotionFarmConnection:Disconnect()
 	end
 end)
+
+newButton("Toggle Guis", function()
+	for i,v in pairs(game.CoreGui:GetChildren()) do
+		if v:HasTag("KSV4") then
+			if v:IsA("ScreenGui") then
+				v.Enabled = not v.Enabled
+			end
+		end
+	end
+end)
+
+newButton("Instance ESP gui", function()
+	local player = game.Players.LocalPlayer
+	local gui = Instance.new("ScreenGui")
+	local frame = Instance.new("Frame")
+	local titleLabel = Instance.new("TextLabel")
+	local startButton = Instance.new("TextButton")
+	local resetButton = Instance.new("TextButton")
+	local playerDropdown = Instance.new("TextBox")
+
+	gui.Name = "ksv4guiinstesp"
+	gui:AddTag("KSV4")
+	gui.Parent = game.CoreGui
+
+	frame.Name = "MainFrame"
+	frame.Parent = gui
+	frame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+	frame.BorderSizePixel = 0
+	frame.Position = UDim2.new(0.3, 0, 0.3, 0)
+	frame.Size = UDim2.new(0, 250, 0, 500)
+	frame.Active = true
+	frame.Draggable = true
+
+	titleLabel.Name = "TitleLabel"
+	titleLabel.Parent = frame
+	titleLabel.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+	titleLabel.BorderSizePixel = 0
+	titleLabel.Size = UDim2.new(1, 0, 0, 50)
+	titleLabel.Font = Enum.Font.SourceSansBold
+	titleLabel.Text = "ksv4 instance esp gui by lagrange"
+	titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+	titleLabel.TextSize = 14
+
+	startButton.Name = "StartButton"
+	startButton.Parent = frame
+	startButton.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+	startButton.BorderSizePixel = 0
+	startButton.Position = UDim2.new(0.1, 0, 0.2, 0)
+	startButton.Size = UDim2.new(0.8, 0, 0, 50)
+	startButton.Font = Enum.Font.SourceSansBold
+	startButton.Text = "Start esp"
+	startButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+	startButton.TextSize = 18
+
+	playerDropdown.Name = "PlayerDropdown"
+	playerDropdown.Parent = frame
+	playerDropdown.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+	playerDropdown.BorderSizePixel = 0
+	playerDropdown.Position = UDim2.new(0.1, 0, 0.4, 0)
+	playerDropdown.Size = UDim2.new(0.8, 0, 0, 50)
+	playerDropdown.Font = Enum.Font.SourceSansBold
+	playerDropdown.Text = "Enter path of Model, BasePart"
+	playerDropdown.TextColor3 = Color3.fromRGB(255, 255, 255)
+	playerDropdown.TextSize = 18
+
+	resetButton.Name = "ResetButton"
+	resetButton.Parent = frame
+	resetButton.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+	resetButton.BorderSizePixel = 0
+	resetButton.Position = UDim2.new(0.1, 0, 0.5, 0)
+	resetButton.Size = UDim2.new(0.8, 0, 0, 50)
+	resetButton.Font = Enum.Font.SourceSansBold
+	resetButton.Text = "Clear esp targets"
+	resetButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+	resetButton.TextSize = 18
+
+	local espinstances = {}
+
+	resetButton.MouseButton1Click:Connect(function()
+		espinstances = {}
+	end)
+
+	local function getInstanceFromPath(fullPath: string): Instance?
+		local pathComponents = string.split(fullPath, ".")
+		local currentInstance = game
+
+		for i, componentName in ipairs(pathComponents) do
+			if i == 1 and (componentName == "game" or componentName == "workspace") then
+				if componentName == "workspace" then
+					currentInstance = workspace
+				end
+			else
+				if currentInstance then
+					currentInstance = currentInstance:FindFirstChild(componentName)
+				else
+					return nil
+				end
+			end
+		end
+		return currentInstance
+	end
+	playerDropdown.FocusLost:Connect(function(enterp, inp)
+		local success, result = pcall(function()
+			local foundInst = getInstanceFromPath(playerDropdown.Text)
+			if foundInst then
+				table.insert(espinstances, foundInst)
+			end
+		end)
+		if not success then
+			warn(result)
+		end
+	end)
+	local ESP_Enabled = false
+	local function auto()
+		if ESP_Enabled == false then
+			for i,v in pairs(espinstances) do
+				if v:IsA("BasePart") then
+					local a = Instance.new("BoxHandleAdornment")
+					a.Parent = v
+					a.Adornee = v
+					a.AlwaysOnTop = true
+					a.ZIndex = 0
+					a.Size = v.Size
+					a.Transparency = 0.4
+					a.Color = BrickColor.new("Lime green")
+				end
+				if v:IsA("Model") then
+					for _, vv in pairs(v:GetDescendants()) do
+						if vv:IsA("BasePart") then	
+							local a = Instance.new("BoxHandleAdornment")
+							a.Parent = vv
+							a.Adornee = vv
+							a.AlwaysOnTop = true
+							a.ZIndex = 0
+							a.Size = vv.Size
+							a.Transparency = 0.4
+							a.Color = BrickColor.new("Lime green")
+						end
+					end
+				end
+			end
+		else
+			for i,v in pairs(espinstances) do
+				for ii,vv in pairs(v:GetDescendants()) do
+					if vv:IsA("BoxHandleAdornment") then
+						v:Destroy()
+					end
+				end
+			end
+		end
+	end
+	local mode = false
+	startButton.MouseButton1Click:Connect(function()
+		if mode == false then
+			mode = true
+			startButton.Text = "Stop esp"
+			auto()
+		else
+			mode = false
+			startButton.Text = "Start esp"
+			auto()
+		end
+	end)
+end)
+
+addcmd('unpartesp',{'nopartesp'},function(args, speaker)
+	if args[1] then
+		local partEspName = getstring(1):lower()
+		if FindInTable(espParts,partEspName) then
+			table.remove(espParts, GetInTable(espParts, partEspName))
+		end
+		for i,v in pairs(workspace:GetDescendants()) do
+			if v:IsA("BoxHandleAdornment") and v.Name == partEspName..'_PESP' then
+				v:Destroy()
+			end
+		end
+	else
+		partEspTrigger:Disconnect()
+		partEspTrigger = nil
+		espParts = {}
+		for i,v in pairs(workspace:GetDescendants()) do
+			if v:IsA("BoxHandleAdornment") and v.Name:sub(-5) == '_PESP' then
+				v:Destroy()
+			end
+		end
+	end
+end)
+
 newButton("Freecam Toggle", function() 
 	if not _G.FreecamConnection then
 		_G.PreviousWS = plr.Character:FindFirstChildOfClass("Humanoid").WalkSpeed
@@ -489,6 +814,7 @@ newButton("Freecam Toggle", function()
 		end)
 	elseif _G.FreecamConnection then
 		_G.FreecamConnection:Disconnect()
+		_G.FreecamConnection = nil
 		plr.Character:FindFirstChildOfClass("Humanoid").WalkSpeed = _G.PreviousWS
 		workspace.CurrentCamera.CFrame = plr.Character:FindFirstChild("Head").CFrame
 		workspace.CurrentCamera.CameraType = Enum.CameraType.Custom
