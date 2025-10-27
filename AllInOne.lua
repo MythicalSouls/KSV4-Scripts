@@ -45,12 +45,10 @@ ScrollingFrame.AutomaticCanvasSize = Enum.AutomaticSize.XY
 ScrollingFrame.ScrollBarImageColor3 = Color3.fromRGB(0, 0, 0)
 ScrollingFrame.Parent = Frame
 
-local UIListLayout = Instance.new("UIListLayout")
-UIListLayout.FillDirection = Enum.FillDirection.Horizontal
-UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-UIListLayout.Wraps = true
-UIListLayout.Padding = UDim.new(0, 10)
-UIListLayout.Parent = ScrollingFrame
+local UIGrid = Instance.new("UIGridLayout")
+UIGrid.CellPadding = UDim2.new(0.04, 0, 0.04, 0)
+UIGrid.CellSize = UDim2.new(0.2, 0, 0.2, 0)
+UIGrid.Parent = ScrollingFrame
 
 local buttonfunction = Instance.new("TextButton")
 buttonfunction.Name = "buttonfunction"
@@ -181,7 +179,7 @@ newButton("Luminance Farm Gui", function()
 	sselectEnemiesButton.Parent = scrollingFrame
 	sselectEnemiesButton.MouseButton1Click:Connect(function()
 		selectedPlayers = {}
-		playerDropdown.Text = "Selected: None"
+		playerDropdown.Text = "Selected ignores: None"
 		playerListFrame.Visible = false
 	end)
 	local tPhases = {"Luminance", "ElectroDarkness", "Melancholia", "NovaInterstellar", "", "Frostelar", "Cosmical Aurora", "", "", "", "", "", "", "", "", "", "Star Seeker"}
@@ -193,7 +191,7 @@ newButton("Luminance Farm Gui", function()
 		selectEnemiesButton.Parent = scrollingFrame
 		selectEnemiesButton.MouseButton1Click:Connect(function()
 			table.insert(selectedPlayers, v)
-			playerDropdown.Text = "Selected: " .. table.concat(selectedPlayers, ", ") .. " Variant(s)"
+			playerDropdown.Text = "Selected ignores: " .. table.concat(selectedPlayers, ", ") .. " Variant(s)"
 			playerListFrame.Visible = false
 		end)
 	end
@@ -507,11 +505,14 @@ newButton("Potions Farm Toggle", function()
 	end
 end)
 
+local guishided = false
+
 newButton("Toggle Guis", function()
 	for i,v in pairs(game.CoreGui:GetChildren()) do
 		if v:HasTag("KSV4") then
 			if v:IsA("ScreenGui") then
-				v.Enabled = not v.Enabled
+				v.Enabled = guishided
+				guishided = not guishided
 			end
 		end
 	end
