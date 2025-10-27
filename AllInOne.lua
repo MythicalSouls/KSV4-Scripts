@@ -671,29 +671,6 @@ newButton("Instance ESP gui", function()
 	end)
 end)
 
-addcmd('unpartesp',{'nopartesp'},function(args, speaker)
-	if args[1] then
-		local partEspName = getstring(1):lower()
-		if FindInTable(espParts,partEspName) then
-			table.remove(espParts, GetInTable(espParts, partEspName))
-		end
-		for i,v in pairs(workspace:GetDescendants()) do
-			if v:IsA("BoxHandleAdornment") and v.Name == partEspName..'_PESP' then
-				v:Destroy()
-			end
-		end
-	else
-		partEspTrigger:Disconnect()
-		partEspTrigger = nil
-		espParts = {}
-		for i,v in pairs(workspace:GetDescendants()) do
-			if v:IsA("BoxHandleAdornment") and v.Name:sub(-5) == '_PESP' then
-				v:Destroy()
-			end
-		end
-	end
-end)
-
 newButton("Freecam Toggle", function() 
 	if not _G.FreecamConnection then
 		_G.PreviousWS = plr.Character:FindFirstChildOfClass("Humanoid").WalkSpeed
