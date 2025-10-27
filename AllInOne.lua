@@ -646,6 +646,7 @@ newButton("Instance ESP gui", function()
 						end
 					end
 				end
+				ESP_Enabled = true
 			end
 		else
 			for i,v in pairs(espinstances) do
@@ -655,6 +656,7 @@ newButton("Instance ESP gui", function()
 					end
 				end
 			end
+			ESP_Enabled = false
 		end
 	end
 	local mode = false
