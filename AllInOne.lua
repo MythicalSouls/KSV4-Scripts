@@ -585,6 +585,13 @@ newButton("Instance ESP gui", function()
 	local espinstances = {}
 
 	resetButton.MouseButton1Click:Connect(function()
+		for i,v in pairs(espinstances) do
+			for ii,vv in pairs(v:GetDescendants()) do
+				if vv:IsA("BoxHandleAdornment") then
+					vv:Destroy()
+				end
+			end
+		end
 		espinstances = {}
 	end)
 
@@ -652,7 +659,7 @@ newButton("Instance ESP gui", function()
 			for i,v in pairs(espinstances) do
 				for ii,vv in pairs(v:GetDescendants()) do
 					if vv:IsA("BoxHandleAdornment") then
-						v:Destroy()
+						vv:Destroy()
 					end
 				end
 			end
