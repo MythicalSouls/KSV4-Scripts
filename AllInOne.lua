@@ -182,7 +182,7 @@ newButton("Luminance Farm Gui", function()
 		playerDropdown.Text = "Selected ignores: None"
 		playerListFrame.Visible = false
 	end)
-	local tPhases = {"Luminance", "ElectroDarkness", "Melancholia", "NovaInterstellar", "", "Frostelar", "Cosmical Aurora", "", "", "", "", "", "", "", "", "", "Star Seeker"}
+	local tPhases = {"Luminance", "ElectroDarkness", "Melancholia", "NovaInterstellar", "", "Frostelar", "Cosmical Aurora", "", "", "", "Lunar Illusion", "", "", "", "", "", "Star Seeker"}
 	for i,v in pairs(tPhases) do
 		if v == "" then continue end
 		local selectEnemiesButton = Instance.new("TextButton")
