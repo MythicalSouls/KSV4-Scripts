@@ -111,14 +111,14 @@ function newTextBox(name: string, functions: thread)
 	box.Visible = true
 	box.Name = name
 	box.Changed:Connect(function(text)
-		functions(text)
+		functions(box[text])
 	end)
 end
 local plr = game.Players.LocalPlayer
 local hrp = plr.Character:FindFirstChild("HumanoidRootPart")
 local potionfarminprogress = false
 
-local ScanRadius = 100
+ScanRadius = 100
 local Nv = Instance.new("NumberValue")
 Nv.Value = ScanRadius
 
@@ -231,6 +231,11 @@ newButton("Fragile Bot", function()
 		FragileBotFunc = task.spawn(FBC)
 	elseif FragileBotFunc ~= nil then
 		task.cancel(FragileBotFunc)
+		for i,v in pairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
+			if v:HasTag("FragileBotInstance") then
+				v:Destroy()
+			end
+		end
 	end
 end)
 
