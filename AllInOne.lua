@@ -67,6 +67,24 @@ buttonfunction.Font = Enum.Font.Sarpanch
 buttonfunction.TextScaled = true
 buttonfunction.Parent = ScrollingFrame
 
+local tbox = Instance.new("TextBox")
+tbox.Name = "tbox"
+tbox.Visible = false
+tbox.Size = UDim2.new(0, 60, 0, 60)
+tbox.BorderColor3 = Color3.fromRGB(0, 0, 0)
+tbox.Position = UDim2.new(0, 0, -1e-07, 0)
+tbox.BorderSizePixel = 0
+tbox.BackgroundColor3 = Color3.fromRGB(76, 76, 76)
+tbox.FontSize = Enum.FontSize.Size14
+tbox.TextSize = 14
+tbox.TextColor3 = Color3.fromRGB(255, 255, 255)
+tbox.TextWrapped = true
+tbox.PlaceholderColor3 = Color3.fromRGB(117, 117, 117)
+tbox.TextWrap = true
+tbox.Font = Enum.Font.Sarpanch
+tbox.TextScaled = true
+tbox.Parent = ScrollingFrame
+
 local UIStroke1 = Instance.new("UIStroke")
 UIStroke1.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 UIStroke1.Thickness = 2
@@ -86,9 +104,135 @@ function newButton(name: string, functions: thread)
 		functions()
 	end)
 end
+function newTextBox(name: string, functions: thread)
+	local box = tbox:Clone()
+	box.PlaceholderText = name
+	box.Parent = ScrollingFrame
+	box.Visible = true
+	box.Name = name
+	box.Changed:Connect(function(text)
+		functions(text)
+	end)
+end
 local plr = game.Players.LocalPlayer
 local hrp = plr.Character:FindFirstChild("HumanoidRootPart")
 local potionfarminprogress = false
+
+local ScanRadius = 100
+local Nv = Instance.new("NumberValue")
+Nv.Value = ScanRadius
+
+newTextBox("Fragile Bot Scan Radius", function(text)
+	ScanRadius = tonumber(text)
+	Nv.Value = ScanRadius
+end)
+
+local FragileBotFunc
+
+newButton("Fragile Bot", function()
+	if FragileBotFunc == nil then
+		local Players = game:GetService("Players")
+		local Player = Players.LocalPlayer
+
+		local function Character(): Model
+			return Player.Character or Player.CharacterAdded:Wait()
+		end
+
+		local function Humanoid(): Humanoid
+			return Character():FindFirstChildOfClass("Humanoid")
+		end
+
+		local function LocalRoot(): BasePart
+			return Character():FindFirstChild("HumanoidRootPart") or Character().PrimaryPart
+		end
+
+		local function GetNearNPCs()
+			local NPCs = {}
+			for i,v in pairs(workspace:GetPartBoundsInRadius(LocalRoot().Position, ScanRadius, OverlapParams.new())) do
+				if v.Parent:IsA("Model") then
+					if v.Parent:FindFirstChild("Mind") then
+						table.insert(NPCs, v)
+					end
+				end
+			end
+			return NPCs
+		end
+
+		local function NearestRoot(): BasePart
+			local closestPart = nil
+			local minDistance = math.huge
+			for _, part in ipairs(GetNearNPCs()) do
+				if part:IsA("BasePart") then
+					if part.Name == "HumanoidRootPart" then
+						local distance = (LocalRoot().Position - part.Position).Magnitude
+						if distance < minDistance then
+							minDistance = distance
+							closestPart = part
+						end
+					end
+				end
+			end
+			return closestPart
+		end
+
+		local function GetFrontRaycast(part, distance)
+			local RP = RaycastParams.new()
+			RP.FilterType = Enum.RaycastFilterType.Include
+			RP.FilterDescendantsInstances = {part}
+			local RayResult = workspace:Raycast(LocalRoot().Position, LocalRoot().CFrame.LookVector * distance, RP)
+			if RayResult then
+				return RayResult
+			end
+			return nil
+		end
+
+		local FBC = coroutine.create(function()
+			local Sphere = Instance.new("Part")
+			Sphere.Shape = Enum.PartType.Ball
+			Sphere.CanCollide = false
+			Sphere.CanQuery = false
+			Sphere.Transparency = 0.7
+			Sphere.Size = Vector3.new(Nv.Value, Nv.Value, Nv.Value)
+			Sphere.CFrame = LocalRoot().CFrame
+			Sphere.Parent = LocalRoot()
+			Sphere:AddTag("FragileBotInstance")
+			local M = Instance.new("Motor6D")
+			M.Parent = Sphere
+			M.Part1 = Sphere
+			M.Part0 = LocalRoot()
+			M:AddTag("FragileBotInstance")
+
+			Nv:GetPropertyChangedSignal("Value"):Connect(function()
+				Sphere.Size = Vector3.new(Nv.Value, Nv.Value, Nv.Value)
+			end)
+
+			local faceAtAttachment = Instance.new("Attachment", LocalRoot())
+			faceAtAttachment:AddTag("FragileBotInstance")
+			local alignment = Instance.new("AlignOrientation", faceAtAttachment)
+			alignment.Attachment0 = faceAtAttachment
+			alignment.Responsiveness = 200
+			alignment.MaxTorque = 179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368
+			alignment:AddTag("FragileBotInstance")
+			local tempAttachment
+			tempAttachment = Instance.new("Attachment", workspace.Terrain)
+			tempAttachment:AddTag("FragileBotInstance")
+			alignment.Attachment1 = tempAttachment
+
+			while Humanoid().Health > 0 do
+				task.wait()
+				local NearestRootPart = NearestRoot()
+				if not NearestRootPart then
+					continue
+				end
+				tempAttachment.CFrame = CFrame.new(Character().HumanoidRootPart.Position, Vector3.new(NearestRootPart.Position.X, Character().HumanoidRootPart.Position.Y, NearestRootPart.Position.Z))
+				Humanoid():MoveTo(NearestRootPart.Position - Vector3.new(-2, 0, -2))
+			end
+		end)
+		FragileBotFunc = task.spawn(FBC)
+	elseif FragileBotFunc ~= nil then
+		task.cancel(FragileBotFunc)
+	end
+end)
 
 newButton("Luminance Farm Gui", function() 
 	local player = game.Players.LocalPlayer
