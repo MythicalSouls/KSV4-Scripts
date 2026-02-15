@@ -104,7 +104,7 @@ function newButton(name: string, functions: thread)
 		functions()
 	end)
 end
-function newTextBox(name: string, settingsTable: {})
+function newTextBox(name: string, settingsTable: {}, noTextFallback: any)
 	local box = tbox:Clone()
 	box.PlaceholderText = name
 	box.Parent = ScrollingFrame
@@ -118,9 +118,13 @@ function newTextBox(name: string, settingsTable: {})
 				end
 				if settingsTable["Variable"]["Current"] and not settingsTable["Variable"]["New"] then
 					if typeof(settingsTable["Variable"]["Current"]) == "number" then
-						settingsTable["Variable"]["Current"] = tonumber(box.Text)
+						if typeof(tonumber(box.Text)) ~= nil then
+							settingsTable["Variable"]["Current"] = tonumber(box.Text)
+						elseif typeof(tonumber(box.Text)) == nil then
+							settingsTable["Variable"]["Current"] = tonumber(noTextFallback)
+						end	
 					elseif typeof(settingsTable["Variable"]["Current"]) == "string" then
-						settingsTable["Variable"]["Current"] = box.Text
+						settingsTable["Variable"]["Current"] = tostring(noTextFallback)
 					end
 				end
 			end
@@ -130,9 +134,13 @@ function newTextBox(name: string, settingsTable: {})
 				end
 				if settingsTable["Value"]["Current"] and not settingsTable["Value"]["New"] then
 					if typeof(settingsTable["Value"]["Current"].Value) == "number" then
-						settingsTable["Value"]["Current"].Value = tonumber(box.Text)
+						if typeof(tonumber(box.Text)) ~= nil then
+							settingsTable["Value"]["Current"].Value = tonumber(box.Text)
+						elseif typeof(tonumber(box.Text)) == nil then
+							settingsTable["Value"]["Current"].Value = tonumber(noTextFallback)
+						end			
 					elseif typeof(settingsTable["Value"]["Current"].Value) == "string" then
-						settingsTable["Value"]["Current"].Value = box.Text
+						settingsTable["Value"]["Current"].Value = tostring(noTextFallback)
 					end
 				end
 			end
@@ -149,7 +157,7 @@ ScanRadius = 100
 local Nv = Instance.new("NumberValue")
 Nv.Value = ScanRadius
 
-newTextBox("Fragile Bot Scan Radius", {["Variable"] = {["Current"] = ScanRadius}, ["Value"] = {["Current"] = Nv}})
+newTextBox("Fragile Bot Scan Radius", {["Variable"] = {["Current"] = ScanRadius}, ["Value"] = {["Current"] = Nv}}, 100)
 
 local FragileBotFunc
 
@@ -175,7 +183,11 @@ newButton("Fragile Bot", function()
 			for i,v in pairs(workspace:GetPartBoundsInRadius(LocalRoot().Position, ScanRadius, OverlapParams.new())) do
 				if v.Parent:IsA("Model") then
 					if v.Parent:FindFirstChild("Mind") then
-						table.insert(NPCs, v)
+						if v.Parent:FindFirstChildOfClass("Humanoid") then
+							if v.Parent:FindFirstChildOfClass("Humanoid").Health > 0 then
+								table.insert(NPCs, v)	
+							end
+						end
 					end
 				end
 			end
@@ -255,6 +267,7 @@ newButton("Fragile Bot", function()
 		FragileBotFunc = task.spawn(FBC)
 	elseif FragileBotFunc ~= nil then
 		task.cancel(FragileBotFunc)
+		FragileBotFunc = nil
 		for i,v in pairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
 			if v:HasTag("FragileBotInstance") then
 				v:Destroy()
