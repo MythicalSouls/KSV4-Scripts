@@ -261,7 +261,8 @@ newButton("Fragile Bot", function()
 					continue
 				end
 				tempAttachment.CFrame = CFrame.new(LocalRoot().Position, Vector3.new(NearestRootPart.Position.X, LocalRoot().Position.Y, NearestRootPart.Position.Z))
-				local Evec3 = LocalRoot().CFrame:ToObjectSpace(NearestRootPart.CFrame) * 2
+				local Evec3 = LocalRoot().CFrame:ToObjectSpace(NearestRootPart.CFrame)
+				local E2vec3 = Evec3 * Evec3.Position
 				local vec3 = LocalRoot().CFrame:ToWorldSpace(Evec3)
 				print(vec3)
 				print(typeof(vec3))
