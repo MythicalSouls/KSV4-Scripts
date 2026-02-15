@@ -194,10 +194,10 @@ newButton("Fragile Bot", function()
 			return NPCs
 		end
 
-		local function NearestRoot(): BasePart
+		local function NearestRoot(DetectionPart): BasePart
 			local closestPart = nil
 			local minDistance = math.huge
-			for _, part in ipairs(GetNearNPCs()) do
+			for _, part in ipairs(GetNearNPCs(DetectionPart)) do
 				if part:IsA("BasePart") then
 					if part.Name == "HumanoidRootPart" then
 						local distance = (LocalRoot().Position - part.Position).Magnitude
