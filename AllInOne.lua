@@ -104,16 +104,43 @@ function newButton(name: string, functions: thread)
 		functions()
 	end)
 end
-function newTextBox(name: string, functions: thread)
+function newTextBox(name: string, settingsTable: {})
 	local box = tbox:Clone()
 	box.PlaceholderText = name
 	box.Parent = ScrollingFrame
 	box.Visible = true
 	box.Name = name
-	box.Changed:Connect(function(text)
-		functions(box[text])
+	box:GetPropertyChangedSignal("Text"):Connect(function()
+		local textChangeUpdate = function()
+			if settingsTable["Variable"] then
+				if settingsTable["Variable"]["Current"] and settingsTable["Variable"]["New"] then
+					settingsTable["Variable"]["Current"] = settingsTable["Variable"]["New"]
+				end
+				if settingsTable["Variable"]["Current"] and not settingsTable["Variable"]["New"] then
+					if typeof(settingsTable["Variable"]["Current"]) == "number" then
+						settingsTable["Variable"]["Current"] = tonumber(box.Text)
+					elseif typeof(settingsTable["Variable"]["Current"]) == "string" then
+						settingsTable["Variable"]["Current"] = box.Text
+					end
+				end
+			end
+			if settingsTable["Value"] then
+				if settingsTable["Value"]["Current"] and settingsTable["Value"]["New"] then
+					settingsTable["Value"]["Current"].Value = settingsTable["Value"]["New"]
+				end
+				if settingsTable["Value"]["Current"] and not settingsTable["Value"]["New"] then
+					if typeof(settingsTable["Value"]["Current"].Value) == "number" then
+						settingsTable["Value"]["Current"].Value = tonumber(box.Text)
+					elseif typeof(settingsTable["Value"]["Current"].Value) == "string" then
+						settingsTable["Value"]["Current"].Value = box.Text
+					end
+				end
+			end
+		end
+		textChangeUpdate()
 	end)
-end
+end	
+	
 local plr = game.Players.LocalPlayer
 local hrp = plr.Character:FindFirstChild("HumanoidRootPart")
 local potionfarminprogress = false
@@ -122,10 +149,7 @@ ScanRadius = 100
 local Nv = Instance.new("NumberValue")
 Nv.Value = ScanRadius
 
-newTextBox("Fragile Bot Scan Radius", function(text)
-	ScanRadius = tonumber(text)
-	Nv.Value = ScanRadius
-end)
+newTextBox("Fragile Bot Scan Radius", {["Variable"] = {["Current"] = ScanRadius}, ["Value"] = {["Current"] = Nv}})
 
 local FragileBotFunc
 
