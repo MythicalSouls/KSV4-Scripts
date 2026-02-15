@@ -180,7 +180,7 @@ newButton("Fragile Bot", function()
 
 		local function GetNearNPCs(DetectionPart: BasePart)
 			local NPCs = {}
-			for i,v in pairs(workspace:GetPartBoundsInRadius(LocalRoot().Position, DetectionPart.Position.Y, OverlapParams.new())) do
+			for i,v in pairs(workspace:GetPartBoundsInRadius(LocalRoot().Position, DetectionPart.Size.Y, OverlapParams.new())) do
 				if v.Parent:IsA("Model") then
 					if v.Parent:FindFirstChild("Mind") then
 						if v.Parent:FindFirstChildOfClass("Humanoid") then
