@@ -180,7 +180,7 @@ newButton("Fragile Bot", function()
 
 		local function GetNearNPCs()
 			local NPCs = {}
-			for i,v in pairs(workspace:GetPartBoundsInRadius(LocalRoot().Position, ScanRadius, OverlapParams.new())) do
+			for i,v in pairs(workspace:GetPartBoundsInRadius(LocalRoot().Position, Nv.Value, OverlapParams.new())) do
 				if v.Parent:IsA("Model") then
 					if v.Parent:FindFirstChild("Mind") then
 						if v.Parent:FindFirstChildOfClass("Humanoid") then
@@ -261,7 +261,7 @@ newButton("Fragile Bot", function()
 					continue
 				end
 				tempAttachment.CFrame = CFrame.new(LocalRoot().Position, Vector3.new(NearestRootPart.Position.X, LocalRoot().Position.Y, NearestRootPart.Position.Z))
-				Humanoid():MoveTo(NearestRootPart.Position - NearestRootPart.CFrame:ToObjectSpace(LocalRoot().CFrame))
+				Humanoid():MoveTo(NearestRootPart.Position - NearestRootPart.CFrame:ToObjectSpace(LocalRoot().CFrame).Position)
 				--Vector3.new(-2, 0, -3)
 			end
 		end)
