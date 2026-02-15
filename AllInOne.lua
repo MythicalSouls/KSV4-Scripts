@@ -178,9 +178,9 @@ newButton("Fragile Bot", function()
 			return Character():FindFirstChild("HumanoidRootPart") or Character().PrimaryPart
 		end
 
-		local function GetNearNPCs()
+		local function GetNearNPCs(DetectionPart: BasePart)
 			local NPCs = {}
-			for i,v in pairs(workspace:GetPartBoundsInRadius(LocalRoot().Position, Nv.Value, OverlapParams.new())) do
+			for i,v in pairs(workspace:GetPartBoundsInRadius(LocalRoot().Position, DetectionPart.Y, OverlapParams.new())) do
 				if v.Parent:IsA("Model") then
 					if v.Parent:FindFirstChild("Mind") then
 						if v.Parent:FindFirstChildOfClass("Humanoid") then
@@ -256,7 +256,7 @@ newButton("Fragile Bot", function()
 
 			while Humanoid().Health > 0 do
 				task.wait()
-				local NearestRootPart = NearestRoot()
+				local NearestRootPart = NearestRoot(Sphere)
 				if not NearestRootPart then
 					continue
 				end
