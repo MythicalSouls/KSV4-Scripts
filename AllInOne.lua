@@ -260,8 +260,9 @@ newButton("Fragile Bot", function()
 				if not NearestRootPart then
 					continue
 				end
-				tempAttachment.CFrame = CFrame.new(Character().HumanoidRootPart.Position, Vector3.new(NearestRootPart.Position.X, Character().HumanoidRootPart.Position.Y, NearestRootPart.Position.Z))
-				Humanoid():MoveTo(NearestRootPart.Position - Vector3.new(-2, 0, -2))
+				tempAttachment.CFrame = CFrame.new(LocalRoot().Position, Vector3.new(NearestRootPart.Position.X, LocalRoot().Position.Y, NearestRootPart.Position.Z))
+				Humanoid():MoveTo(NearestRootPart.Position - NearestRootPart.CFrame:ToObjectSpace(LocalRoot().CFrame))
+				--Vector3.new(-2, 0, -3)
 			end
 		end)
 		FragileBotFunc = task.spawn(FBC)
