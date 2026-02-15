@@ -266,7 +266,12 @@ newButton("Fragile Bot", function()
 				local vec3 = LocalRoot().CFrame:ToWorldSpace(E2vec3).Position
 				print(vec3)
 				print(typeof(vec3))
-				Humanoid():MoveTo(vec3)
+				if typeof(vec3) == "CFrame" then
+					Humanoid():MoveTo(vec3.Position)
+				else
+					Humanoid():MoveTo(vec3)
+				end
+				
 				
 				--- NearestRootPart.CFrame:ToObjectSpace(LocalRoot().CFrame).Position
 			end
